@@ -11,7 +11,7 @@ import glob
 from setuptools import setup, find_packages
 
 
-project_path = lambda *names: os.path.join(os.path.dirname(__file__), *names)
+project_path = lambda *names: os.path.join('.', *names)
 
 longdesc = "\n\n".join((open(project_path("README.txt")).read(),
                         open(project_path("ABOUT.txt")).read()))

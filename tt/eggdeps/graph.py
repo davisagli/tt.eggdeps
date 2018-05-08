@@ -266,7 +266,7 @@ class Node(dict):
         way of which the respective named dependencies are connected.
 
         """
-        for dep, dep_extras in self.iteritems():
+        for dep, dep_extras in self.items():
             extras = set()
             for src_extras in dep_extras.values():
                 if src_extras == set():
@@ -286,6 +286,6 @@ class Node(dict):
         required by the distribution represented by self.
 
         """
-        for dep, dep_extras in self.iteritems():
-            for extra, src_extras in dep_extras.iteritems():
+        for dep, dep_extras in self.items():
+            for extra, src_extras in dep_extras.items():
                 yield dep, extra, src_extras

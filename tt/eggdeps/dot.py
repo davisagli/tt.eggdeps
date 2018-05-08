@@ -24,15 +24,15 @@ def write_dot(graph, options, fp=None):
 
     if hasattr(options, 'comment'):
         for line in options.comment.splitlines():
-            print >>fp, '// ' + line
+            print('// ' + line, file=fp)
 
     direct_deps = set()
     for name in graph.roots:
         direct_deps.update(graph[name])
 
-    print >>fp, "digraph {"
+    print("digraph {", file=fp)
 
-    for node in graph.itervalues():
+    for node in graph.values():
         node_options = {}
         if options.version_numbers and node.dist:
             node_options["label"] = "%s %s" % (node.name, node.dist.version)
@@ -51,25 +51,25 @@ def write_dot(graph, options, fp=None):
         if not node.compatible:
             fill("red")
 
-        print >>fp, '"%s"%s' % (node.name, format_options(node_options))
+        print('"%s"%s' % (node.name, format_options(node_options)), file=fp)
 
     if options.cluster:
         for i, cluster in enumerate(yield_clusters(graph)):
-            print >>fp, "subgraph cluster_%s {" % i
+            print("subgraph cluster_%s {" % i, file=fp)
             for name in cluster:
-                print >>fp, '"%s"' % name
-            print >>fp, "}"
+                print('"%s"' % name, file=fp)
+            print("}", file=fp)
 
-    for node in graph.itervalues():
+    for node in graph.values():
         for dep, extras in node.iter_deps():
             edge_options = {}
             if extras:
                 edge_options["color"] = "lightgrey"
 
-            print >>fp, '"%s" -> "%s"%s' % (node.name,
-                                      dep, format_options(edge_options))
+            print('"%s" -> "%s"%s' % (node.name,
+                                      dep, format_options(edge_options)), file=fp)
 
-    print >>fp, "}"
+    print("}", file=fp)
 
 
 def print_dot(graph, options):
@@ -93,7 +93,7 @@ def format_options(options):
         return ""
 
     return " [%s]" % ", ".join('%s="%s"' % item
-                               for item in options.iteritems())
+                               for item in options.items())
 
 
 def yield_clusters(graph):

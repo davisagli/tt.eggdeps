@@ -28,7 +28,7 @@ def print_subgraph(graph, mount_points, path, seen, extras, options):
         line += " ..."
     if not node.follow:
         line += " *"
-    print line
+    print(line)
 
     if not print_tree:
         return False
@@ -49,7 +49,7 @@ def print_subgraph(graph, mount_points, path, seen, extras, options):
         # should not be printed themselves. This requires rewriting most of
         # this module to calculate all output before printing anything.
         if extra:
-            print prefix + "  [%s]" % extra
+            print(prefix + "  [%s]" % extra)
 
         for dep, extras in sorted(deps.items()):
             printed_all = (print_subgraph(graph, mount_points, path + (dep,),
@@ -58,7 +58,7 @@ def print_subgraph(graph, mount_points, path, seen, extras, options):
             seen.add(dep)
 
     if options.once and not options.terse and not printed_all:
-        print prefix + "    ..."
+        print(prefix + "    ...")
 
     return True
 

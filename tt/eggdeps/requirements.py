@@ -132,7 +132,7 @@ def common_requirement(working_set, distribution):
     return intersection
 
 
-def interval_intersection((lower1, upper1), (lower2, upper2)):
+def interval_intersection(interval1, interval2):
     """Compute the intersection of two open intervals.
 
     Intervals are pairs of comparable values, one or both may be None to
@@ -156,6 +156,8 @@ def interval_intersection((lower1, upper1), (lower2, upper2)):
 
     >>> interval_intersection((None, 1), (1, None))
     """
+    lower1, upper1 = interval1
+    lower2, upper2 = interval2
     lower = max(lower1, lower2)
     if upper1 is None or upper2 is None:
         upper = max(upper1, upper2)
